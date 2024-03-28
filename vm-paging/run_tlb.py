@@ -8,7 +8,7 @@ def run_tlb():
     subprocess.run(["gcc", "-O0", "tlb.c", "-o", "tlb"])
     pages = []
     times = []
-    for num_pages in range(14):
+    for num_pages in range(16):
         n_page = 2**num_pages
         pages.append(n_page)
         times.append(subprocess.run(["./tlb", str(n_page), str(num_trials), "1"]).returncode)
@@ -16,7 +16,11 @@ def run_tlb():
     return pages, times
 
 def plot(pages, times):
-    plt.scatter(pages, times)
+    fig, ax = plt.subplots()
+    ax.scatter(pages, times)
+    ax.set_xscale('log', base=2)
+    ax.set_xlabel("Number of pages")
+    ax.set_ylabel("Time per access (ns)")
     plt.show()
     plt.savefig("tlb_measurements.pdf")
 

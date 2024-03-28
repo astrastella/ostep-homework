@@ -46,7 +46,7 @@ int main(int argc, char *argv[])
     }
     
     clock_gettime(CLOCK_MONOTONIC, &end);
-    long interval = end.tv_nsec-start.tv_nsec;
+    long interval = end.tv_nsec-start.tv_nsec + (end.tv_sec-start.tv_sec)*1000000000L;
     if (quiet == 0)
     {
         printf("Time elapsed for %d operations:  %ld nanoseconds \n", num_trials, interval);
