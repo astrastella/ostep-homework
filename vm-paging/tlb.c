@@ -7,7 +7,7 @@
 #include <sched.h>
 #include <pthread.h>
 
-// for future: use shell script and pipeline to return and process float output
+// for future: use a shell script and pipelining to return and process float output
 int main(int argc, char *argv[])
 {
     assert(argc == 4);
