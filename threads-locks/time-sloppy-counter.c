@@ -29,6 +29,7 @@ void *thread_func(void *arg)
     unsigned long long end = __rdtsc();
     printf("ticks for %d operations: ", max);
     printf("%llu\n", end - start);
+    return NULL;
 }
 
 int main(int argc, char *argv[])
@@ -39,7 +40,7 @@ int main(int argc, char *argv[])
     init(&counter, threshold);
     pthread_t threads[n_threads];
     args args[n_threads];
-    int operations = 10000000; //10^7
+    int operations = 1000000; //10^6
     for (int i =0; i < n_threads; ++i)
     {
         args[i].counter = &counter;
@@ -49,8 +50,11 @@ int main(int argc, char *argv[])
         pthread_create(&threads[i], NULL, thread_func, (void *) &args[i]);
     }
     
+    unsigned long long start = __rdtsc();
     for (int i =0; i < n_threads; ++i)
         pthread_join(threads[i], NULL);
     
+    unsigned long long end = __rdtsc();
+    printf("average ticks for each thread: %llu\n", (end - start) / n_threads);
     return 0;
 }

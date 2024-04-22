@@ -1,5 +1,5 @@
 #include <pthread.h>
-#define MAX_CPU 2
+#define MAX_CPU 4
 
 typedef struct __counter_t
 {
